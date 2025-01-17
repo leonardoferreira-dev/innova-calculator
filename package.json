@@ -1,0 +1,26 @@
+{
+  "name": "innova-calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build step not required'",
+    "test": "echo 'No tests configured'"
+  },
+  "keywords": [],
+  "author": "Leonardo Ferreira",
+  "license": "ISC",
+  "peerDependencies": {
+    "prop-types": "^15.8.1",
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0",
+    "react-icons": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.56",
+    "@types/react-dom": "^16.9.9",
+    "sass": "^1.83.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  }
+}
