@@ -16,40 +16,40 @@
 .calculator-modal {
   position: absolute;
   z-index: 1000;
-  top: 2rem;
+  top: 1.33rem;
   left: 0;
   background: #2e3851;
   color: #29cda8;
-  width: 18rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 12rem;
+  padding: 0.67rem;
+  border-radius: 0.33rem;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
 }
 
 .calculator-display {
   background: #212b44;
   color: #29cda8;
   text-align: right;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  padding: 0.67rem;
+  border-radius: 0.33rem;
+  margin-bottom: 0.67rem;
+  font-size: 1rem;
   font-weight: 600;
   border: 1px solid #29cda8;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .calculator-buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  gap: 0.33rem;
 }
 
 .calculator-button-key {
-  padding: 1rem;
-  font-size: 1.25rem;
+  padding: 0.67rem;
+  font-size: 0.83rem;
   font-weight: 500;
-  border-radius: 0.5rem;
+  border-radius: 0.33rem;
   border: 1px solid #e5e7eb;
   cursor: pointer;
   transition: background-color 0.3s;
