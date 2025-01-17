@@ -17,11 +17,22 @@ const Calculator: React.FC<CalculatorProps> = ({
   const [calculatorValue, setCalculatorValue] = useState<string>("0");
   const calculatorRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    if (value !== calculatorValue) {
+      setCalculatorValue(String(value) || "0");
+    }
+  }, [value]);
+
   const handleButtonClick = (buttonValue: string): void => {
     if (buttonValue === "C") {
       setCalculatorValue("0");
     } else if (buttonValue === "=") {
       try {
+        const lastChar = calculatorValue.slice(-1);
+        if (/[×÷+\-]/.test(lastChar) || lastChar === "=") {
+          return;
+        }
+
         const expression = calculatorValue
           .replace(/,/g, ".")
           .replace(/÷/g, "/")
@@ -29,9 +40,9 @@ const Calculator: React.FC<CalculatorProps> = ({
 
         const result = eval(expression);
 
-        console.log("result", result);
-
-        const formattedValue = parseFloat(result).toFixed(2).replace(".", ",");
+        const formattedValue = parseFloat(result)
+          .toFixed(decimalScale)
+          .replace(".", ",");
 
         setCalculatorValue(formattedValue);
         onChange(formattedValue);
