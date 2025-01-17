@@ -24,6 +24,19 @@ const Calculator: React.FC<CalculatorProps> = ({
   }, [value]);
 
   const handleButtonClick = (buttonValue: string): void => {
+    if (
+      calculatorValue === "0" ||
+      calculatorValue === "0,00" ||
+      calculatorValue === "0.00"
+    ) {
+      if (/[0-9]/.test(buttonValue)) {
+        setCalculatorValue(buttonValue);
+      } else {
+        setCalculatorValue("0");
+      }
+      return;
+    }
+
     if (buttonValue === "C") {
       setCalculatorValue("0");
     } else if (buttonValue === "=") {
