@@ -16,6 +16,7 @@
 
 .calculator-modal {
   position: absolute;
+  z-index: 1000;
   top: 2rem;
   left: 0;
   background: #2e3851;

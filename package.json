@@ -1,11 +1,13 @@
 {
   "name": "innova-calculator",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "echo 'Build step not required'",
-    "test": "echo 'No tests configured'"
+    "build": "tsc && npm run build:css",
+    "test": "echo 'No tests configured'",
+    "build:css": "sass src/styles.scss dist/styles.css --no-source-map"
   },
   "keywords": [],
   "author": "Leonardo Ferreira",
@@ -22,5 +24,9 @@
     "sass": "^1.83.4",
     "typescript": "^5.7.3",
     "vite": "^6.0.7"
-  }
+  },
+  "files": [
+    "dist",
+    "dist/styles.css"
+  ]
 }

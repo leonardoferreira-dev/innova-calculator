@@ -1,12 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaCalculator } from "react-icons/fa";
 
-const Calculator = ({ value, onChange, decimalScale = 2 }) => {
-  const [showCalculator, setShowCalculator] = useState(false);
-  const [calculatorValue, setCalculatorValue] = useState("0");
-  const calculatorRef = useRef(null);
+// Definindo os tipos dos props que o componente irá receber
+interface CalculatorProps {
+  value: string;
+  onChange: (value: string) => void;
+  decimalScale?: number;
+}
 
-  const handleButtonClick = (buttonValue) => {
+const Calculator: React.FC<CalculatorProps> = ({
+  value,
+  onChange,
+  decimalScale = 2,
+}) => {
+  const [showCalculator, setShowCalculator] = useState<boolean>(false);
+  const [calculatorValue, setCalculatorValue] = useState<string>("0");
+  const calculatorRef = useRef<HTMLDivElement | null>(null);
+
+  const handleButtonClick = (buttonValue: string): void => {
     if (buttonValue === "C") {
       setCalculatorValue("0");
     } else if (buttonValue === "=") {
@@ -55,10 +66,10 @@ const Calculator = ({ value, onChange, decimalScale = 2 }) => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent): void => {
       if (
         calculatorRef.current &&
-        !calculatorRef.current.contains(event.target)
+        !calculatorRef.current.contains(event.target as Node)
       ) {
         setShowCalculator(false);
       }
@@ -74,10 +85,10 @@ const Calculator = ({ value, onChange, decimalScale = 2 }) => {
   }, [showCalculator]);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (!showCalculator) return;
 
-      const keyMap = {
+      const keyMap: { [key: string]: string } = {
         Backspace: "←",
         Enter: "=",
         "+": "+",
@@ -106,7 +117,7 @@ const Calculator = ({ value, onChange, decimalScale = 2 }) => {
     };
   }, [showCalculator, calculatorValue]);
 
-  const buttons = [
+  const buttons: string[] = [
     "C",
     "←",
     "÷",
@@ -128,43 +139,34 @@ const Calculator = ({ value, onChange, decimalScale = 2 }) => {
   ];
 
   return (
-    <div className="relative w-full">
+    <div className="calculator-container">
       <button
         type="button"
         onClick={() => setShowCalculator(true)}
-        className="flex items-center justify-center rounded-full bg-blue-500 text-white shadow-md hover:bg-blue-600 focus:ring focus:ring-blue-300"
+        className="calculator-button"
         title="Abrir calculadora"
       >
         <FaCalculator color="#000" size={15} />
       </button>
 
       {showCalculator && (
-        <div
-          ref={calculatorRef}
-          style={{ background: "#2E3851" }}
-          className="absolute z-50 bg-gray-200 border rounded shadow-lg p-4 top-12 left-0 w-72"
-        >
-          <div
-            style={{ background: "#212B44", color: "#29CDA8" }}
-            className="text-right p-3 rounded mb-3 text-2xl font-semibold border shadow-sm"
-          >
-            {calculatorValue}
-          </div>
+        <div ref={calculatorRef} className="calculator-modal">
+          <div className="calculator-display">{calculatorValue}</div>
 
-          <div className="grid grid-cols-4 gap-2">
+          <div className="calculator-buttons">
             {buttons.map((button, index) => (
               <button
                 type="button"
                 key={index}
-                className={`${
+                className={`calculator-button-key ${
                   button === "="
-                    ? "col-span-1 bg-green-new text-white border border-green-new"
+                    ? "equal"
                     : button.match(/[×÷+\-]/)
-                    ? "bg-orange-300 text-green-new border border-orange-400"
+                    ? "operator"
                     : button === "C" || button === "←"
-                    ? "bg-gray-300 text-green-new border border-gray-400"
-                    : "bg-gray-200 text-white border border-gray-300"
-                } py-2 rounded text-lg font-medium hover:bg-gray-400 focus:ring focus:ring-orange-200`}
+                    ? "clear"
+                    : "number"
+                }`}
                 onClick={() => handleButtonClick(button)}
               >
                 {button}
