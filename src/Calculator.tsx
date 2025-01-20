@@ -5,12 +5,14 @@ interface CalculatorProps {
   value: string;
   onChange: (value: string) => void;
   decimalScale?: number;
+  disabled?: boolean;
 }
 
 const Calculator: React.FC<CalculatorProps> = ({
   value,
   onChange,
   decimalScale = 2,
+  disabled,
 }) => {
   const [showCalculator, setShowCalculator] = useState<boolean>(false);
   const [calculatorValue, setCalculatorValue] = useState<string>("0");
@@ -161,6 +163,7 @@ const Calculator: React.FC<CalculatorProps> = ({
   return (
     <div className="calculator-container">
       <button
+        disabled={disabled}
         type="button"
         onClick={() => setShowCalculator(true)}
         className="calculator-button"
