@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaCalculator } from "react-icons/fa";
 
-// Definindo os tipos dos props que o componente irá receber
 interface CalculatorProps {
   value: string;
   onChange: (value: string) => void;
@@ -18,7 +17,7 @@ const Calculator: React.FC<CalculatorProps> = ({
   const calculatorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (value !== calculatorValue) {
+    if (!!value && value !== calculatorValue) {
       setCalculatorValue(String(value) || "0");
     }
   }, [value]);
@@ -66,11 +65,8 @@ const Calculator: React.FC<CalculatorProps> = ({
       setCalculatorValue((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
     } else if (buttonValue === ",") {
       setCalculatorValue((prev) => {
-        if (!prev.includes(",") && !/[×÷+\-]/.test(prev.slice(-1))) {
-          return prev + ",";
-        }
-
-        if (/[×÷+\-]/.test(prev.slice(-1))) {
+        const lastNumber = prev.split(/[×÷+\-]/).pop() as any;
+        if (!lastNumber.includes(",")) {
           return prev + ",";
         }
         return prev;
@@ -175,8 +171,9 @@ const Calculator: React.FC<CalculatorProps> = ({
 
       {showCalculator && (
         <div ref={calculatorRef} className="calculator-modal">
-          <div className="calculator-display">{calculatorValue}</div>
-
+          <div className="calculator-display">
+            {calculatorValue.replace(/\./g, ",")}
+          </div>
           <div className="calculator-buttons">
             {buttons.map((button, index) => (
               <button
